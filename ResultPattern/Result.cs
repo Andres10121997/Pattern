@@ -1,23 +1,21 @@
-﻿using Pattern.ResultPattern.DTO;
-using System;
+﻿using System;
 
 namespace Pattern.ResultPattern
 {
-    public sealed class Result<TValue>
-        where TValue : notnull
+    public sealed class Result<TValue, TError>
     {
         #region Variables
         private readonly bool isSuccess;
-        private readonly TValue value;
-        private readonly ResultErrorDto error;
+        private readonly TValue? value;
+        private readonly TError? error;
         #endregion
 
 
 
         #region Constructor Method
         public Result(bool IsSuccess,
-                      TValue Value,
-                      ResultErrorDto Error)
+                      TValue? Value,
+                      TError? Error)
             : base()
         {
             this.isSuccess = IsSuccess;
@@ -34,7 +32,7 @@ namespace Pattern.ResultPattern
             get => this.isSuccess;
         }
 
-        public TValue Value
+        public TValue? Value
         {
             get
             {
@@ -47,7 +45,7 @@ namespace Pattern.ResultPattern
             }
         }
 
-        public ResultErrorDto Error
+        public TError? Error
         {
             get
             {
@@ -63,20 +61,20 @@ namespace Pattern.ResultPattern
 
 
 
-        public static Result<TValue> Success(TValue Value)
+        public static Result<TValue, TError> Success(TValue? Value)
         {
-            return new Result<TValue>(
+            return new Result<TValue, TError>(
                 IsSuccess: true,
                 Value: Value,
-                Error: default!
+                Error: default
             );
         }
 
-        public static Result<TValue> Failure(ResultErrorDto Error)
+        public static Result<TValue, TError> Failure(TError Error)
         {
-            return new Result<TValue>(
+            return new Result<TValue, TError>(
                 IsSuccess: false,
-                Value: default!,
+                Value: default,
                 Error: Error
             );
         }
