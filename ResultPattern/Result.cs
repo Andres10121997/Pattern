@@ -61,7 +61,7 @@ namespace Pattern.ResultPattern
 
 
 
-        public static Result<TValue, TError> Success(TValue? Value)
+        public static Result<TValue, TError> Success(TValue Value)
         {
             return new Result<TValue, TError>(
                 IsSuccess: true,
